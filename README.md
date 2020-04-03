@@ -16,6 +16,6 @@ git push
 
 Tag and release
 ```bash
-git tag -fs v1 -m "Update v1 tag"
-git push origin v1 --force
+git tag -f -s -m "Tag v1" v1
+git push -f origin v1
 ```
