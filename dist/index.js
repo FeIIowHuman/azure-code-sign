@@ -91,7 +91,11 @@ function run() {
             console.log(`Signing file '${filename}'...`);
             const toolsPath = path.join(__dirname, '..', 'tools');
             console.log(`Tools path: '${toolsPath}'`);
-            child_process_1.spawn('dir', [toolsPath]);
+            child_process_1.spawn('dir', [toolsPath], {
+                cwd: './tools',
+                stdio: 'inherit',
+                windowsHide: true
+            });
             const child = child_process_1.spawn(signtool, [
                 'sign',
                 '/v',
