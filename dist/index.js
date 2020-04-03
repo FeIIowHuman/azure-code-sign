@@ -79,6 +79,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+/* eslint-disable no-console */
 const core = __importStar(__webpack_require__(470));
 const child_process_1 = __webpack_require__(129);
 const signtool = 'signtool.exe';
@@ -87,14 +88,24 @@ function run() {
         try {
             const filename = core.getInput('filename', { required: true });
             console.log(`Signing file '${filename}'...`);
-            const child = child_process_1.spawn(signtool, ['sign', '/v', '/debug', '/fd', 'sha256', '/dlib', 'Ess.SignCore.AzSign.SignTool.Dlib.dll', filename], {
+            console.log(`Current Working Directory: '${process.cwd()}'`);
+            const child = child_process_1.spawn(signtool, [
+                'sign',
+                '/v',
+                '/debug',
+                '/fd',
+                'sha256',
+                '/dlib',
+                'Ess.SignCore.AzSign.SignTool.Dlib.dll',
+                filename
+            ], {
                 cwd: './tools',
                 stdio: 'inherit',
                 windowsHide: true
             });
             child.on('exit', code => {
-                if (code != 0) {
-                    throw `Child process exited with code ${code}`;
+                if (code !== 0) {
+                    throw new Error(`Child process exited with code ${code}`);
                 }
             });
         }
