@@ -1,0 +1,9 @@
+name: 'FeIIowHuman'
+description: 'Azure Code Sign'
+author: 'FeIIowHuman'
+inputs:
+  filename:
+    description: 'File to sign'
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
