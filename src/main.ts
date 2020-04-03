@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import * as core from '@actions/core'
+import * as path from 'path'
 import {spawn} from 'child_process'
 
 const signtool = 'signtool.exe'
@@ -8,7 +9,9 @@ async function run(): Promise<void> {
   try {
     const filename = core.getInput('filename', {required: true})
     console.log(`Signing file '${filename}'...`)
-    console.log(`Current Working Directory: '${process.cwd()}'`)
+    const toolsPath = path.join(__dirname, '..', 'tools')
+    console.log(`Tools path: '${toolsPath}'`)
+    spawn('dir', [toolsPath])
     const child = spawn(
       signtool,
       [

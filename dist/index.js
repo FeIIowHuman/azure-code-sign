@@ -81,6 +81,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 /* eslint-disable no-console */
 const core = __importStar(__webpack_require__(470));
+const path = __importStar(__webpack_require__(622));
 const child_process_1 = __webpack_require__(129);
 const signtool = 'signtool.exe';
 function run() {
@@ -88,7 +89,9 @@ function run() {
         try {
             const filename = core.getInput('filename', { required: true });
             console.log(`Signing file '${filename}'...`);
-            console.log(`Current Working Directory: '${process.cwd()}'`);
+            const toolsPath = path.join(__dirname, '..', 'tools');
+            console.log(`Tools path: '${toolsPath}'`);
+            child_process_1.spawn('dir', [toolsPath]);
             const child = child_process_1.spawn(signtool, [
                 'sign',
                 '/v',
