@@ -10,12 +10,6 @@ async function run(): Promise<void> {
     const filename = core.getInput('filename', {required: true})
     console.log(`Signing file '${filename}'...`)
     const toolsPath = path.join(__dirname, '..', 'tools')
-    console.log(`Tools path: '${toolsPath}'`)
-    spawn('dir', [toolsPath], {
-      cwd: './tools',
-      stdio: 'inherit',
-      windowsHide: true
-    })
     const child = spawn(
       signtool,
       [
@@ -29,7 +23,7 @@ async function run(): Promise<void> {
         filename
       ],
       {
-        cwd: './tools',
+        cwd: toolsPath,
         stdio: 'inherit',
         windowsHide: true
       }
